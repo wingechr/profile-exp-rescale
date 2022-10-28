@@ -40,7 +40,7 @@ Das Problem ist nicht eindeutig formuliert, die Reduktion der Fläche kann versc
 ### Lösung
 
 - Wähle $\alpha > 0$
-- $ g(x) := m\displaystyle\frac{e^{\alpha x}-1}{e^{\alpha m}-1}$
+- $\displaystyle g(x) := m\frac{e^{\alpha x}-1}{e^{\alpha m}-1}$
 - $\beta := \displaystyle\frac{F_a - F_n}{F_a - \displaystyle\sum_{t=1}^T{g(x_t)}}$
 - ist $\beta \notin (0,1] \Rightarrow \alpha$ zu klein gewählt
 - **Interpretation**: je größer $\alpha$, desto mehr werden die großen Werte reduziert. Je kleiner $\alpha$, desto mehr müssen
