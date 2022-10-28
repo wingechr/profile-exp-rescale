@@ -54,10 +54,10 @@ Das Problem ist nicht eindeutig formuliert, die Reduktion der Fläche kann versc
 
 Zeige A,C,D für $g(x) = m\displaystyle\frac{e^{\alpha x}-1}{e^{\alpha m}-1}$
 
-- A) $g(m) =  
+- A) $$g(m) =  
      m\displaystyle\frac{e^{\alpha m}-1}{e^{\alpha m}-1} =
      m\displaystyle\frac{1}{1} =
-     m$
+     m$$
 
   q.e.d
 
