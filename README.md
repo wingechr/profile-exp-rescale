@@ -10,9 +10,14 @@
 
 ```python
 >>> from profile_exp_rescale import rescale
+>>> # linear rescale (sum and max with factor 1.5)
 >>> rescale([0, 10, 2, 3, 5], target_sum=30, target_max_value=15)
-
 array([ 0. , 15. ,  3. ,  4.5,  7.5])
+
+>>> # exponential rescale
+>>> rescale([0, 10, 2, 3, 5], target_sum=25, target_max_value=15)
+array([ 0.        , 15.        ,  1.78317885,  2.84339187,  5.37342929])
+
 ```
 
 ## Herleitung
