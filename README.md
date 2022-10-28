@@ -126,6 +126,8 @@ $$
     f'(x) = 1 - \beta \left(1 - g'(x)\right) \\
     g'(x) > 0, \beta \in (0,1) \Rightarrow \\
     1 - g'(x) < 1 \Rightarrow \\
+$$
+$$
     \beta \left(1 - g'(x)\right) < 1 \Rightarrow \\
     1 - \beta \left(1 - g'(x)\right) > 0 \Rightarrow \\
     f'(x) > 0
