@@ -57,9 +57,9 @@ Zeige A,C,D für $\displaystyle g(x) = m\frac{e^{\alpha x}-1}{e^{\alpha m}-1}$
 - A)
 
 $$
-    \displaystyle g(m) =
-    m\frac{e^{\alpha m}-1}{e^{\alpha m}-1} =
-    m\frac{1}{1} =
+    \displaystyle g(m) = \\
+    m\frac{e^{\alpha m}-1}{e^{\alpha m}-1} = \\
+    m\frac{1}{1} = \\
     m
 $$
 
