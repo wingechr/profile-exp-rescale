@@ -41,7 +41,7 @@ Das Problem ist nicht eindeutig formuliert, die Reduktion der Fläche kann versc
 
 - Wähle $\alpha > 0$
 - $\displaystyle g(x) := m\frac{e^{\alpha x}-1}{e^{\alpha m}-1}$
-- $\beta := \displaystyle\frac{F_a - F_n}{F_a - \displaystyle\sum_{t=1}^T{g(x_t)}}$
+- $\displaystyle\beta := \frac{F_a - F_n}{F_a - \sum_{t=1}^T{g(x_t)}}$
 - ist $\beta \notin (0,1] \Rightarrow \alpha$ zu klein gewählt
 - **Interpretation**: je größer $\alpha$, desto mehr werden die großen Werte reduziert. Je kleiner $\alpha$, desto mehr müssen
   die kleinen Werte die gewünschte Flächenreduktion erzielen. Ab einer gewissen Grenze ist das unmöglich, die Werte fallen
@@ -52,12 +52,12 @@ Das Problem ist nicht eindeutig formuliert, die Reduktion der Fläche kann versc
 
 ### Beweis
 
-Zeige A,C,D für $g(x) = m\displaystyle\frac{e^{\alpha x}-1}{e^{\alpha m}-1}$
+Zeige A,C,D für $\displaystyle g(x) = m\frac{e^{\alpha x}-1}{e^{\alpha m}-1}$
 
-- A) $$g(m) =  
-     m\displaystyle\frac{e^{\alpha m}-1}{e^{\alpha m}-1} =
-     m\displaystyle\frac{1}{1} =
-     m$$
+- A) $\displaystyle g(m) =  
+     m\frac{e^{\alpha m}-1}{e^{\alpha m}-1} =
+     m\frac{1}{1} =
+     m$
 
   q.e.d
 
