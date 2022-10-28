@@ -102,6 +102,9 @@ $$
     \displaystyle\sum_{t=1}^T{f(x_t)} = \\
     \displaystyle\sum_{t=1}^T{\left(x_t - \beta \left(x_t - g(x_t)\right)\right)} = \\
     \displaystyle\sum_{t=1}^T{x_t} - \beta \left( \displaystyle\sum_{t=1}^T{x_t} - \displaystyle\sum_{t=1}^T{g(x_t)} \right) = \\
+$$
+
+$$
     F_a - \frac{F_a - F_n}{F_a - \displaystyle\sum_{t=1}^T{g(x_t)}}\left(F_a - \displaystyle\sum_{t=1}^T{g(x_t)}\right) = \\
     F_a - \left(F_a - F_n\right) = \\
     F_n
