@@ -1,5 +1,20 @@
 # README
 
+## Quickstart
+
+### Installation
+
+`pip install profile-exp-rescale`
+
+### Example
+
+```python
+>>> from profile_exp_rescale import rescale
+>>> rescale([0, 10, 2, 3, 5], target_sum=30, target_max_value=15)
+
+array([ 0. , 15. ,  3. ,  4.5,  7.5])
+```
+
 ## Herleitung
 
 ### Gegeben
