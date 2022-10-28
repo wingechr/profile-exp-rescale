@@ -63,60 +63,70 @@ $$
     m
 $$
 
-  q.e.d
+- C)
 
-- C) $g(0) =
-     m\displaystyle\frac{e^{\alpha 0}-1}{e^{\alpha m}-1} =
-     m\displaystyle\frac{1-1}{e^{\alpha m}-1} =
-     m \times 0 =
-     m$
+$$
+    g(0) = \\
+    m\displaystyle\frac{e^{\alpha 0}-1}{e^{\alpha m}-1} = \\
+    m\displaystyle\frac{1-1}{e^{\alpha m}-1} = \\
+    m \times 0 = \\
+    m
+$$
 
-  q.e.d
+- D)
 
-- D) $g'(x) = m\alpha\displaystyle\frac{e^{\alpha x}}{e^{\alpha m}-1}
-     \alpha > 0 \Rightarrow
-     e^{\alpha x} > 1, e^{\alpha m} > 1, m\alpha > 0, e^{\alpha m} - 1 > 0 \Rightarrow
-     g'(x) = [>0]\displaystyle\frac{[>1]}{[>0]}
-     g'(x) > 0$
-
-  q.e.d
+$$
+    g'(x) =
+    m\alpha\displaystyle\frac{e^{\alpha x}}{e^{\alpha m}-1} \alpha > 0 \Rightarrow
+    e^{\alpha x} > 1, e^{\alpha m} > 1, m\alpha > 0, e^{\alpha m} - 1 > 0 \Rightarrow
+    g'(x) = [>0]\displaystyle\frac{[>1]}{[>0]}
+    g'(x) > 0
+$$
 
 Zeige A,B,C,D für $f(x) = x - \beta \left(x - g(x)\right)$, wenn A,C,D für $g(x)$ gezeigt wurde
 
-- A) $f(m) =
-     m - \beta \left(m - g(m)\right) =
-     m - \beta \left(m - m\right)  =
-     m - 0 =
-     m$
+- A)
 
-  q.e.d
+$$
+    f(m) =
+    m - \beta \left(m - g(m)\right) =
+    m - \beta \left(m - m\right)  =
+    m - 0 =
+    m
+$$
 
-- B) $F_n =
-     \displaystyle\sum_{t=1}^T{f(x_t)} =
-     \displaystyle\sum_{t=1}^T{\left(x_t - \beta \left(x_t - g(x_t)\right)\right)} =
-     \displaystyle\sum_{t=1}^T{x_t} - \beta \left( \displaystyle\sum_{t=1}^T{x_t} - \displaystyle\sum_{t=1}^T{g(x_t)} \right) =
-     F_a - \frac{F_a - F_n}{F_a - \displaystyle\sum_{t=1}^T{g(x_t)}}\left(F_a - \displaystyle\sum_{t=1}^T{g(x_t)}\right) =
-     F_a - \left(F_a - F_n\right) =
-     F_n$
+- B)
 
-  q.e.d
+$$
+    F_n =
+    \displaystyle\sum_{t=1}^T{f(x_t)} =
+    \displaystyle\sum_{t=1}^T{\left(x_t - \beta \left(x_t - g(x_t)\right)\right)} =
+    \displaystyle\sum_{t=1}^T{x_t} - \beta \left( \displaystyle\sum_{t=1}^T{x_t} - \displaystyle\sum_{t=1}^T{g(x_t)} \right) =
+    F_a - \frac{F_a - F_n}{F_a - \displaystyle\sum_{t=1}^T{g(x_t)}}\left(F_a - \displaystyle\sum_{t=1}^T{g(x_t)}\right) =
+    F_a - \left(F_a - F_n\right) =
+    F_n
+$$
 
-- C) $f(0) =
-     0 - \beta \left(0 - g(0)\right) =
-     0 - \beta \left(0 - 0\right)  =
-     0 - 0 =
-     0$
+- C)
 
-  q.e.d
+$$
+    f(0) =
+    0 - \beta \left(0 - g(0)\right) =
+    0 - \beta \left(0 - 0\right)  =
+    0 - 0 =
+    0
+$$
 
-- D) $f'(x) = 1 - \beta \left(1 - g'(x)\right)
-     g'(x) > 0, \beta \in (0,1) \Rightarrow
-     1 - g'(x) < 1 \Rightarrow
-     \beta \left(1 - g'(x)\right) < 1 \Rightarrow
-     1 - \beta \left(1 - g'(x)\right) > 0 \Rightarrow
-     f'(x) > 0$
+- D)
 
-  q.e.d
+$$
+    f'(x) = 1 - \beta \left(1 - g'(x)\right)
+    g'(x) > 0, \beta \in (0,1) \Rightarrow
+    1 - g'(x) < 1 \Rightarrow
+    \beta \left(1 - g'(x)\right) < 1 \Rightarrow
+    1 - \beta \left(1 - g'(x)\right) > 0 \Rightarrow
+    f'(x) > 0
+$$
 
 ### Varianten
 
