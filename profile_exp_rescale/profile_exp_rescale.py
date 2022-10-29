@@ -99,8 +99,6 @@ def rescale_exp(values, alpha):
 def rescale_pow(values, alpha):
     """Create power rescaled profile with known base (alpha)."""
     if alpha:
-        ## NOTE:  where: only user power for values != 0, otherwise numpy will return inf
-        # return np.float_power(values, alpha, where=(values > 0))
         return np.float_power(values, alpha)
     else:
         return values.copy()
