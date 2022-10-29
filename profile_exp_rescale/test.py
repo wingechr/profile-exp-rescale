@@ -60,15 +60,15 @@ class TestRescale(unittest.TestCase):
         self.assertAlmostEqual(np.max(ys), target_max_value)
         self.assertListEqual(list(rankdata(ys)), self.xs1_rank)
 
-    def test_exp_scale_sum(self):
+    def test_pow_scale_sum(self):
         target_sum = 40 - 0.01  # close to max
-        ys = rescale(self.xs1, target_sum=target_sum)
+        ys = rescale(self.xs1, target_sum=target_sum, method="pow")
         self.assertAlmostEqual(np.sum(ys), target_sum)
         self.assertAlmostEqual(np.max(ys), self.xs1_max)
         self.assertListEqual(list(rankdata(ys)), self.xs1_rank)
 
         target_sum = 10 + 0.01  # close to min
-        ys = rescale(self.xs1, target_sum=target_sum)
+        ys = rescale(self.xs1, target_sum=target_sum, method="pow")
         self.assertAlmostEqual(np.sum(ys), target_sum)
         self.assertAlmostEqual(np.max(ys), self.xs1_max)
         self.assertListEqual(list(rankdata(ys)), self.xs1_rank)
