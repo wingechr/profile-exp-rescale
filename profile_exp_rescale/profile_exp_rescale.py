@@ -11,6 +11,7 @@ def rescale(
     target_max_rel=None,
     max_value=None,
     tol=1e-10,
+    method="exp",
 ):
     """Create rescaled profile.
     Args:
@@ -26,6 +27,8 @@ def rescale(
             actual maximum of values may be lower.
             If missing, actual maximum of values will be used
         tol(float, optional)
+        method(str, optional): 'exp' (the default) or 'pow' (not fully tested!!)
+
     Returns:
         array: numpy array with result profile
     """
@@ -43,7 +46,9 @@ def rescale(
     # normalized (max=1) profile
     xs_norm = xs / xs_max
     ys_sum_norm = ys_sum / ys_max
-    ys_norm = rescale_norm(values_norm=xs_norm, target_sum=ys_sum_norm, tol=tol)
+    ys_norm = rescale_norm(
+        values_norm=xs_norm, target_sum=ys_sum_norm, tol=tol, method=method
+    )
 
     # denormalize result
     ys = ys_norm * ys_max
@@ -56,7 +61,7 @@ def rescale(
     return ys
 
 
-def rescale_norm(values_norm, target_sum, tol=1e-10):
+def rescale_norm(values_norm, target_sum, tol=1e-10, method="exp"):
     """Create rescaled profile from normalized profile (max=1).
     Args:
         values_norm(iterable): normalized profile (max=1)
@@ -76,21 +81,41 @@ def rescale_norm(values_norm, target_sum, tol=1e-10):
     assert xs_count_1 > 0
     assert 0 <= xs_min <= target_sum <= xs_max
 
-    alpha = find_optimal_alpha(values_norm, target_sum, tol)
-    ys_norm = rescale_alpha(values_norm, target_sum, alpha, tol)
+    alpha = find_optimal_alpha(values_norm, target_sum, tol, method)
+    ys_norm = rescale_alpha(values_norm, target_sum, alpha, tol, method)
     return ys_norm
 
 
 def rescale_exp(values, alpha):
     """Create exponentially rescaled profile with known exponent (alpha)."""
     if alpha:
-        e_alpha_1 = 1 / (np.exp(alpha) - 1)
-        return (np.exp(values * alpha) - 1) * e_alpha_1
+        base = np.exp(alpha)
+        e_alpha_1 = 1 / (base - 1)
+        return (np.float_power(base, values) - 1) * e_alpha_1
     else:
-        return values
+        return values.copy()
 
 
-def rescale_alpha(values_norm, target_sum, alpha, tol=1e-10):
+def rescale_pow(values, alpha):
+    """Create power rescaled profile with known base (alpha)."""
+    if alpha:
+        ## NOTE:  where: only user power for values != 0, otherwise numpy will return inf
+        # return np.float_power(values, alpha, where=(values > 0))
+        return np.float_power(values, alpha)
+    else:
+        return values.copy()
+
+
+def get_rescale_fun(method="exp"):
+    if method == "exp":
+        return rescale_exp
+    elif method == "pow":
+        return rescale_pow
+    else:
+        raise NotImplementedError(method)
+
+
+def rescale_alpha(values_norm, target_sum, alpha, tol=1e-10, method="exp"):
     """Create exponentially rescaled profile with known exponent (alpha) to target area.
     Args:
         values_norm(iterable): normalized profile (max=1)
@@ -101,20 +126,31 @@ def rescale_alpha(values_norm, target_sum, alpha, tol=1e-10):
     """
 
     values_sum = np.sum(values_norm)
-    values_exp = rescale_exp(values_norm, alpha)
-    rescaled_sum = np.sum(values_exp)
-    if alpha:
-        beta = 1 - (values_sum - target_sum) / (values_sum - rescaled_sum)
+    rescale_fun = get_rescale_fun(method)
+    values_rescaled = rescale_fun(values_norm, alpha)
+    rescaled_sum = np.sum(values_rescaled)
+    if abs(rescaled_sum - values_sum) > tol:
+        # linear correction
+        # beta: weight of rescaled values, (1-beta): weight of original values
+        beta = (values_sum - target_sum) / (values_sum - rescaled_sum)
+        assert 0 - tol <= beta <= 1 + tol
+        result = values_norm * (1 - beta) + values_rescaled * beta
     else:
-        beta = 1
+        result = values_norm
 
-    logging.debug(f"rescale alpha: {alpha}, beta: {beta}")
-    assert 0 - tol <= beta <= 1 + tol
+    # correct for rounding errors
+    result[result < 0] = 0
+    result[result > 1] = 1
 
-    return values_norm * beta + values_exp * (1 - beta)
+    if abs(np.sum(result) - target_sum) > tol:
+        logging.warning(
+            "resulting sum slightly off target (because of small precision errors)"
+        )
+
+    return result
 
 
-def find_optimal_alpha(values_norm, target_sum, tol=1e-10):
+def find_optimal_alpha(values_norm, target_sum, tol=1e-10, method="exp"):
     """Find optimal alpha (so that beta == 1.0)
 
     Args:
@@ -129,15 +165,24 @@ def find_optimal_alpha(values_norm, target_sum, tol=1e-10):
         return 0  # linear
 
     # create function to get root of
+    rescale_fun = get_rescale_fun(method)
+
     def f(alpha):
-        values_exp = rescale_exp(values_norm, alpha)
-        rescaled_sum = np.sum(values_exp)
+        values_rescaled = rescale_fun(values_norm, alpha)
+        rescaled_sum = np.sum(values_rescaled)
         sum_delta = rescaled_sum - target_sum
         return sum_delta
 
     # https://docs.scipy.org/doc/scipy/reference/generated/scipy.optimize.root_scalar.html#scipy.optimize.root_scalar  # noqa
-    bound_alpha = np.log(1e64)
-    res = scipy.optimize.root_scalar(f, bracket=(-bound_alpha, bound_alpha))
+    if method == "exp":
+        bound_alpha = np.log(1e64)
+        bracket = (-bound_alpha, bound_alpha)
+    elif method == "pow":
+        bracket = (tol, 1 / tol)
+    else:
+        raise NotImplementedError(method)
+
+    res = scipy.optimize.root_scalar(f, bracket=bracket)
     assert res.converged
     alpha = res.root
 
